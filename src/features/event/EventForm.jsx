@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Segment } from 'semantic-ui-react';
+import {Button, Form, Segment} from 'semantic-ui-react';
 
 class EventForm extends Component {
     state = {
@@ -19,15 +19,28 @@ class EventForm extends Component {
         this.setState({fields});
     };
 
-    onFormSubmit = () => {
+    onFormSubmit = (e) => {
+        e.preventDefault();
         const newEvent = this.state.event;
         this.setState(prevState => ({
             events: [...prevState.events, newEvent],
             event: {title: '', hostedBy: ''}
-        }))
+        }));
+
+    };
+
+    handleSubmit = () => {
+        this.props.onFormSubmit({
+            id: this.props.id,
+            title: this.state.fields.title,
+            hostedBy: this.state.fields.hostedBy
+        })
     };
 
     render() {
+        const submitText = this.props.id ? 'Update Event' : 'Create Event';
+        const {onFormClose} = this.props;
+
         return (
             <Segment>
                 <Form>
@@ -47,7 +60,10 @@ class EventForm extends Component {
                         onChange={this.onInputChange}
                         value={this.state.fields.hostedBy}
                     />
-                    <input type="submit" value='Save' onClick={this.onFormSubmit}/>
+                    <Button.Group attached='bottom'>
+                        <Button basic color='blue' onClick={this.handleSubmit} content={submitText}/>
+                        <Button basic color='red' onClick={onFormClose} content='Cancel'/>
+                    </Button.Group>
                 </Form>
             </Segment>
         );

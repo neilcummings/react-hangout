@@ -3,6 +3,7 @@ import { Segment, Button, Item, Icon, Image, List } from 'semantic-ui-react';
 
 const EventListItem = ({event={}}) => {
     const {
+        id = '',
         title = '',
         hostedBy = '',
         hostedByAvatar = '',
@@ -47,7 +48,7 @@ const EventListItem = ({event={}}) => {
                 </List>
             </Segment>
             <Segment clearing={true}>
-                {description}
+                {description}, {id}
                 <Button color="teal" floated="right" content="View" />
             </Segment>
         </Segment.Group>

@@ -13,7 +13,9 @@ const NavBar = () => {
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/events' activeStyle={style} name='Events'/>
                 <Menu.Item as={NavLink} to='/people' activeStyle={style} name='People'/>
+
                 <Menu.Item position='right'>
+                    <Button floated='right' positive inverted content='Create Event' />
                     <Button basic inverted>Login</Button>
                     <Button basic inverted>Sign Out</Button>
                 </Menu.Item>
@@ -21,6 +23,6 @@ const NavBar = () => {
             </Container>
         </Menu>
     )
-}
+};
 
 export default NavBar

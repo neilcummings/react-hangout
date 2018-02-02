@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import EventsListItem from "./EventsListItem";
+import cuid from 'cuid';
 import {Grid, Button} from 'semantic-ui-react';
 import EventForm from "./EventForm";
 
@@ -24,15 +25,40 @@ const events = [
 
 class EventsDashboard extends Component {
     state = {
-        events: events
+        events: events,
+        isFormOpen: false
     };
 
 
     eventsRow(event, index) {
         return (
-            <EventsListItem key={index} event={event}/>
+            <EventsListItem key={event.id} event={event}/>
         );
     }
+
+    handleOpenEventForm = () => {
+        this.setState({
+            isFormOpen: true
+        })
+    };
+
+    handleCloseEventForm = () => {
+        this.setState({
+            isFormOpen: false
+        })
+    };
+
+    handleCreateFormSubmit = (event) => {
+        this.createEvent(event);
+        this.handleCloseEventForm();
+    };
+
+    createEvent = (event) => {
+        event.id = cuid();
+        this.setState({
+            events: this.state.events.concat(event)
+        });
+    };
 
     render() {
         return (
@@ -41,7 +67,14 @@ class EventsDashboard extends Component {
                     {this.state.events.map(this.eventsRow)}
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <EventForm/>
+                    {!this.state.isFormOpen &&
+                    <Button positive inverted content='Create Event' onClick={this.handleOpenEventForm}/>
+                    }
+                    {this.state.isFormOpen &&
+                        <EventForm
+                            onFormClose={this.handleCloseEventForm}
+                            onFormSubmit={this.handleCreateFormSubmit}
+                        />}
                 </Grid.Column>
 
             </Grid>
