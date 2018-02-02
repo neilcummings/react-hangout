@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import EventsListItem from "./EventsListItem";
 import cuid from 'cuid';
 import {Grid, Button} from 'semantic-ui-react';
-import EventForm from "./EventForm";
+import {Link} from "react-router-dom";
 
 const events = [
     {
@@ -22,6 +22,7 @@ const events = [
         location: 'London'
     }
 ];
+
 
 class EventsDashboard extends Component {
     state = {
@@ -49,8 +50,11 @@ class EventsDashboard extends Component {
     };
 
     handleCreateFormSubmit = (event) => {
-        this.createEvent(event);
-        this.handleCloseEventForm();
+        // this.createEvent(event);
+        event.id = cuid();
+        this.setState({
+            events: this.state.events.concat(event)
+        });
     };
 
     createEvent = (event) => {
@@ -63,18 +67,17 @@ class EventsDashboard extends Component {
     render() {
         return (
             <Grid stackable container className="main">
+
                 <Grid.Column width={10}>
+                    <Button as={Link}
+                            to={{pathname: '/createEvent', state: {handleSubmit: this.handleCreateFormSubmit}}}
+                            positive
+                            inverted
+                            content='Create Event'/>
                     {this.state.events.map(this.eventsRow)}
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    {!this.state.isFormOpen &&
-                    <Button positive inverted content='Create Event' onClick={this.handleOpenEventForm}/>
-                    }
-                    {this.state.isFormOpen &&
-                        <EventForm
-                            onFormClose={this.handleCloseEventForm}
-                            onFormSubmit={this.handleCreateFormSubmit}
-                        />}
+
                 </Grid.Column>
 
             </Grid>

@@ -19,6 +19,7 @@ class EventDetails extends Component {
         };
 
         const {event} = this.props.location.state;
+        console.log('in event details not the form');
 
         return (
             <Grid className='main' container>
