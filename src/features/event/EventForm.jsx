@@ -29,7 +29,8 @@ class EventForm extends Component {
 
     };
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault();
         this.props.onFormSubmit({
             id: this.props.id,
             title: this.state.fields.title,

@@ -9,7 +9,7 @@ const events = [
         id: 1,
         title: 'The amazing event',
         hostedBy: 'Bob',
-        hostedByAvatar: 'https://placeimg.com/100/100/people',
+        hostedByAvatar: 'http://placeimg.com/100/100/people',
         description: 'A wonderful evening in the pub',
         location: 'London'
     },
@@ -17,7 +17,7 @@ const events = [
         id: 2,
         title: 'Another amazing event',
         hostedBy: 'Bob',
-        hostedByAvatar: 'https://placeimg.com/100/100/people',
+        hostedByAvatar: 'http://placeimg.com/100/100/people',
         description: 'A wonderful evening in the pub',
         location: 'London'
     }

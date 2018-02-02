@@ -1,5 +1,6 @@
 import React from 'react';
 import { Segment, Button, Item, Icon, Image, List } from 'semantic-ui-react';
+import {Link} from "react-router-dom";
 
 const EventListItem = ({event={}}) => {
     const {
@@ -42,14 +43,14 @@ const EventListItem = ({event={}}) => {
                         <Image
                             size="mini"
                             avatar={true}
-                            src="https://placeimg.com/100/100/animals"
+                            src="http://placeimg.com/100/100/animals"
                         />
                     </List.Item>
                 </List>
             </Segment>
             <Segment clearing={true}>
                 {description}, {id}
-                <Button color="teal" floated="right" content="View" />
+                <Button as={Link} to={{pathname: '/event/' + id, state: {event: event} }} color="teal" floated="right" content="View" />
             </Segment>
         </Segment.Group>
     );
