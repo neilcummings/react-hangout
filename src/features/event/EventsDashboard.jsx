@@ -1,32 +1,35 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import EventsListItem from "./EventsListItem";
 import cuid from 'cuid';
 import {Grid, Button} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
-const events = [
-    {
-        id: 1,
-        title: 'The amazing event',
-        hostedBy: 'Bob',
-        hostedByAvatar: 'http://placeimg.com/100/100/people',
-        description: 'A wonderful evening in the pub',
-        location: 'London'
-    },
-    {
-        id: 2,
-        title: 'Another amazing event',
-        hostedBy: 'Bob',
-        hostedByAvatar: 'http://placeimg.com/100/100/people',
-        description: 'A wonderful evening in the pub',
-        location: 'London'
-    }
-];
+// const events = [
+//     {
+//         id: 1,
+//         title: 'The amazing event',
+//         hostedBy: 'Bob',
+//         hostedByAvatar: 'http://placeimg.com/100/100/people',
+//         description: 'A wonderful evening in the pub',
+//         location: 'London'
+//     },
+//     {
+//         id: 2,
+//         title: 'Another amazing event',
+//         hostedBy: 'Bob',
+//         hostedByAvatar: 'http://placeimg.com/100/100/people',
+//         description: 'A wonderful evening in the pub',
+//         location: 'London'
+//     }
+// ];
 
+const mapState = state => ({
+    events: state.events
+});
 
 class EventsDashboard extends Component {
     state = {
-        events: events,
         isFormOpen: false
     };
 
@@ -65,24 +68,23 @@ class EventsDashboard extends Component {
     };
 
     render() {
+        const {events} = this.props;
         return (
-            <Grid stackable container className="main">
-
+            <Grid.Row>
                 <Grid.Column width={10}>
                     <Button as={Link}
                             to={{pathname: '/createEvent', state: {handleSubmit: this.handleCreateFormSubmit}}}
                             positive
                             inverted
                             content='Create Event'/>
-                    {this.state.events.map(this.eventsRow)}
+                    {events.map(this.eventsRow)}
                 </Grid.Column>
                 <Grid.Column width={6}>
 
                 </Grid.Column>
-
-            </Grid>
+            </Grid.Row>
         );
     }
 }
 
-export default EventsDashboard;
+export default connect(mapState)(EventsDashboard);

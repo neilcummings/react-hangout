@@ -7,6 +7,7 @@ import EventDetails from 'features/event/EventDetails';
 import EventsDashboard from 'features/event/EventsDashboard';
 import PeopleDashboard from 'features/people/PeopleDashboard';
 import EventForm from "../../features/event/EventForm";
+import {Grid} from "semantic-ui-react";
 
 
 class App extends Component {
@@ -14,11 +15,13 @@ class App extends Component {
         return (
             <div>
                 <NavBar/>
-                <Route exact path='/' component={HomePage}/>
-                <Route path='/events' component={EventsDashboard}/>
-                <Route path='/people' component={PeopleDashboard}/>
-                <Route path='/event/:id' component={EventDetails}/>
-                <Route exact path='/createEvent' component={EventForm} />
+                <Grid stackable container className="main">
+                    <Route exact path='/' component={HomePage}/>
+                    <Route path='/events' component={EventsDashboard}/>
+                    <Route path='/people' component={PeopleDashboard}/>
+                    <Route path='/event/:id' component={EventDetails}/>
+                    <Route exact path='/createEvent' component={EventForm}/>
+                </Grid>
             </div>
         );
     }

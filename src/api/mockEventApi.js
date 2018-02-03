@@ -1,4 +1,5 @@
 import delay from './delay';
+import cuid from 'cuid';
 
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
@@ -33,11 +34,6 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
-//This would be performed on the server in a real app. Just stubbing in.
-const generateId = course => {
-    return replaceAll(course.title, ' ', '-');
-};
-
 class EventApi {
     static getAllEvents() {
         return new Promise((resolve, reject) => {
@@ -58,14 +54,13 @@ class EventApi {
                 }
 
                 if (event.id) {
-                    const existingCourseIndex = events.findIndex(a => a.id === event.id);
+                    const existingEventIndex = events.findIndex(a => a.id === event.id);
                     events.splice(existingEventIndex, 1, event);
                 } else {
                     //Just simulating creation here.
                     //The server would generate ids and watchHref's for new courses in a real app.
                     //Cloning so copy returned is passed by value rather than by reference.
-                    event.id = generateId(event);
-                    event.watchHref = `http://www.pluralsight.com/courses/${event.id}`;
+                    event.id = cuid();
                     event.push(event);
                 }
 
@@ -74,11 +69,11 @@ class EventApi {
         });
     }
 
-    static deleteCourse(eventId) {
+    static deleteEvent(eventId) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const indexOfEventToDelete = events.findIndex(event => {
-                    event.id === courseId;
+                    event.id === eventId;
                 });
                 events.splice(indexOfEventToDelete, 1);
                 resolve();
